@@ -15,6 +15,8 @@ document.addEventListener('click', function () {
         replacePlusAndDisplayResult();
     } else if (event.target.id === 'extractQueryFromConsole') {
         extractQueryFromConsoleAndDisplayResult();
+    }else if (event.target.id === 'extractAdvSearchQuery') {
+        extractAdvSearchQueryAndDisplayResult()
     }
 })
 /* HOT KEYS */
@@ -35,6 +37,9 @@ document.addEventListener('keydown', function (event) {
                 break;
             case "Digit5":
                 extractQueryFromConsoleAndDisplayResult();
+                break;
+            case "Digit6":
+                extractAdvSearchQueryAndDisplayResult();
                 break;
             case "KeyT":
                 foucusOnTextArea();
@@ -90,6 +95,16 @@ function extractQueryFromConsoleAndDisplayResult() {
     const input = document.getElementById("input").value;
     result.innerHTML = extractQueryFromConsole(input);
     highlightResult();
+}
+
+function extractAdvSearchQueryAndDisplayResult(){
+    const input = document.getElementById("input").value;
+    result.innerHTML = extractAdvSearchQuery(input);
+    highlightResult();
+}
+
+function extractAdvSearchQuery(inputStr){
+    return `${inputStr}`.match(/select distinct \/\* index.+/gmi).join(';<br>') + ';'
 }
 
 function extractQueryFromConsole(inputStr) {
