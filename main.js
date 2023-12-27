@@ -104,11 +104,13 @@ function extractAdvSearchQueryAndDisplayResult(){
 }
 
 function extractAdvSearchQuery(inputStr){
-    return `${inputStr}`.match(/select distinct \/\* index.+/gmi).join(';<br>') + ';'
+    const regex = /select distinct \/\* index.+/gmi;
+    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
 }
 
 function extractQueryFromConsole(inputStr) {
-    return `${inputStr}`.match(/select.+|with.+|insert.+|update.+|delete.+|merge.+/gmi).join(';<br>') + ';'
+    const regex = /select.+|with.+|insert.+|update.+|delete.+|merge.+/gmi;
+    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
 }
 
 function highlightResult() {
