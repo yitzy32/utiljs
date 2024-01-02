@@ -4,18 +4,16 @@ foucusOnTextArea();
 /* END ON WINDOW LOAD */
 
 /* LISTENERS */
-document.addEventListener('click', function () {
-    if (event.target.id === 'collapseStr') {
+document.addEventListener('click', function (e) {
+    if (e.target.id === 'collapseStr') {
         collapseAndDisplayResult();
-    } else if (event.target.id === 'join') {
-        joinAndDisplayResult();
-    } else if (event.target.id === 'toLowerCase') {
-        toLowerCaseAndDisplayResult();
-    } else if (event.target.id === 'stripGitBashPluses') {
-        replacePlusAndDisplayResult();
-    } else if (event.target.id === 'extractQueryFromConsole') {
+    } else if (e.target.id === 'lineBreakToCommaDelimited') {
+        lineBreakToCommaDelimitedAndDisplayResult();
+    } else if (e.target.id === 'collapseStrLowerIgnoreQuoted') {
+        collapseStrLowerIgnoreQuotedAndDisplayResult();
+    } else if (e.target.id === 'extractQueryFromConsole') {
         extractQueryFromConsoleAndDisplayResult();
-    }else if (event.target.id === 'extractAdvSearchQuery') {
+    }else if (e.target.id === 'extractAdvSearchQuery') {
         extractAdvSearchQueryAndDisplayResult()
     }
 })
@@ -27,18 +25,15 @@ document.addEventListener('keydown', function (event) {
                 collapseAndDisplayResult();
                 break;
             case "Digit2":
-                joinAndDisplayResult();
+                collapseStrLowerIgnoreQuotedAndDisplayResult();
                 break;
             case "Digit3":
-                toLowerCaseAndDisplayResult();
+                lineBreakToCommaDelimitedAndDisplayResult();
                 break;
             case "Digit4":
-                replacePlusAndDisplayResult();
-                break;
-            case "Digit5":
                 extractQueryFromConsoleAndDisplayResult();
                 break;
-            case "Digit6":
+            case "Digit5":
                 extractAdvSearchQueryAndDisplayResult();
                 break;
             case "KeyT":
@@ -62,33 +57,16 @@ function collapseAndDisplayResult() {
     highlightResult();
 }
 
-function joinAndDisplayResult() {
+function lineBreakToCommaDelimitedAndDisplayResult() {
     const input = document.getElementById("input").value;
     result.innerHTML = input.split("\n").join(", ");
     highlightResult();
 }
 
-function toLowerCaseAndDisplayResult() {
+function collapseStrLowerIgnoreQuotedAndDisplayResult() {
     const input = document.getElementById("input").value;
-    result.innerHTML = lowerCaseNotSingleQuoted(input);
+    result.innerHTML = collapseStrLowerIgnoreQuoted(input);
     highlightResult();
-}
-
-function replacePlusAndDisplayResult() {
-    const input = document.getElementById("input").value;
-    result.innerHTML = stripGitBashPluses(input);
-    highlightResult();
-}
-
-function stripGitBashPluses(str){
-    let output = '';
-    for(let i = 0; i < str.length; i++){
-        if(str[i]=='+'&& str.substring(i+1, i+4)=='   '){
-            continue
-        }
-        output+= str[i]
-    }
-    return output.replace(/\n/g,'');
 }
 
 function extractQueryFromConsoleAndDisplayResult() {
@@ -129,7 +107,7 @@ function foucusOnTextArea() {
     input.focus()
 }
 
-function lowerCaseNotSingleQuoted(inputStr) {
+function collapseStrLowerIgnoreQuoted(inputStr) {
     let output = "";
     let quoteCount = 0;
     for (let i = 0; i < inputStr.length; i++) {
