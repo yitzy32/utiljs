@@ -50,7 +50,7 @@ document.addEventListener('keydown', function (event) {
 /* END HOT KEYS */
 /* END LISTENERS */
 
-/* 'PRIVATE' FUNCTIONS*/
+
 function collapseAndDisplayResult() {
     const input = document.getElementById("input").value;
     result.innerHTML = input.replace(/\s\s+/g, " ").replace(/\n/g, " ");
@@ -81,16 +81,6 @@ function extractAdvSearchQueryAndDisplayResult(){
     highlightResult();
 }
 
-function extractAdvSearchQuery(inputStr){
-    const regex = /select distinct \/\* index.+/gmi;
-    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
-}
-
-function extractQueryFromConsole(inputStr) {
-    const regex = /select.+|with.+|insert.+|update.+|delete.+|merge.+/gmi;
-    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
-}
-
 function highlightResult() {
     const sel = window.getSelection();
     const el = document.getElementById('result')
@@ -107,6 +97,19 @@ function foucusOnTextArea() {
     input.focus()
 }
 
+/* 'PRIVATE' FUNCTIONS*/
+
+function extractAdvSearchQuery(inputStr){
+    const regex = /select distinct \/\* index.+/gmi;
+    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
+}
+
+function extractQueryFromConsole(inputStr) {
+    const regex = /select.+|with.+|insert.+|update.+|delete.+|merge.+/gmi;
+    return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
+}
+
+
 function collapseStrLowerIgnoreQuoted(inputStr) {
     let output = "";
     let quoteCount = 0;
@@ -118,21 +121,4 @@ function collapseStrLowerIgnoreQuoted(inputStr) {
     }
     return output
 }
-
-/*function insertArrayIntoString() {
-    let output = '';
-    const string = prompt('Please enter string with question mark placeholder');
-    if (!string.includes('?')) {
-        alert('String must contain question mark');
-        return;
-    }
-    let array = prompt('Please enter array');
-    (array[0] != '[') ? array = array.split(',') : array = JSON.parse(array);
-    for (let i = 0; i < array.length; i++) {
-        output += string.replace(/\?/, array[i]);
-        output += '<br>';
-    }
-    return output;
-}*/
-
 /* END 'PRIVATE' FUNCTIONS*/
