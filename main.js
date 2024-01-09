@@ -13,7 +13,7 @@ document.addEventListener('click', function (e) {
         collapseStrLowerIgnoreQuotedAndDisplayResult();
     } else if (e.target.id === 'extractQueryFromConsole') {
         extractQueryFromConsoleAndDisplayResult();
-    }else if (e.target.id === 'extractAdvSearchQuery') {
+    } else if (e.target.id === 'extractAdvSearchQuery') {
         extractAdvSearchQueryAndDisplayResult()
     }
 })
@@ -75,7 +75,7 @@ function extractQueryFromConsoleAndDisplayResult() {
     highlightResult();
 }
 
-function extractAdvSearchQueryAndDisplayResult(){
+function extractAdvSearchQueryAndDisplayResult() {
     const input = document.getElementById("input").value;
     result.innerHTML = extractAdvSearchQuery(input);
     highlightResult();
@@ -99,7 +99,7 @@ function foucusOnTextArea() {
 
 /* 'PRIVATE' FUNCTIONS*/
 
-function extractAdvSearchQuery(inputStr){
+function extractAdvSearchQuery(inputStr) {
     const regex = /select distinct \/\* index.+/gmi;
     return `${inputStr}`.match(regex) ? `${inputStr}`.match(regex).join(';<br>') + ';' : 'Not found';
 }
